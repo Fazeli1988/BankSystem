@@ -100,7 +100,6 @@ public class CustomerServiceImpl implements CustomerService {
             File file=new File(name+".jsn");
             file.createNewFile();
            objectMapper.writeValue(file,customers);
-
         } catch (IOException e) {
             throw new FileException();
         }
@@ -143,7 +142,6 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             saveJason("initData");
         } catch (FileException ignored) {
-
         }
     }
 

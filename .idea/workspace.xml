@@ -4,45 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="85319015-8c5c-4baa-97d6-225aaad4d281" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/dto/CustomerDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/dto/LegalCustomerDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/dto/RealCustomerDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/facade/CustomerFacade.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/facade/impl/CustomerFacadeImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/facade/impl/CustomerValidationContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/mapper/CustomerMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/model/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/model/CustomerType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/model/FileType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/model/LegalCustomer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/model/RealCustomer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/exception/CustomerBaseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/exception/CustomerNotFindException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/exception/DuplicateCustomerException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/exception/EmptyCustomerException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/exception/FileException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/exception/InvalidType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/exception/ValidationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/impl/CustomerServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/validation/Validation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/validation/ValidationContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/util/MapperWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/util/NumberValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/util/ScannerWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/view/ConsoleUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/view/component/AbstractCustomerUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/view/component/LegalCustomrUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/view/component/RealCustomerUI.java" afterDir="false" />
+    <list default="true" id="85319015-8c5c-4baa-97d6-225aaad4d281" name="Changes" comment="Create Project by Maven and use jackson-databind  , shutdownHook">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mysite/customer/service/impl/CustomerServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,6 +89,19 @@
       <option name="presentableId" value="Default" />
       <updated>1739859978189</updated>
     </task>
+    <task id="LOCAL-00001" summary="Create Project by Maven and use jackson-databind  , shutdownHook">
+      <option name="closed" value="true" />
+      <created>1740492283836</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740492283836</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Create Project by Maven and use jackson-databind  , shutdownHook" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create Project by Maven and use jackson-databind  , shutdownHook" />
   </component>
 </project>
