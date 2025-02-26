@@ -18,6 +18,10 @@ public CustomerDto(Integer id,String name, String number, CustomerType type) {
         this.type = type;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
