@@ -1,23 +1,16 @@
 package com.mysite.customer.model;
 
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import java.io.Serializable;
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class LegalCustomer extends Customer implements Serializable {
     private String fax;
 
-    public String getFax() {
-        return fax;
-    }
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-    @Override
-    public String toString() {
-        return "BusinessContact{" +
-                super.toString()+
-                ", fax='" + fax + '\'' +
-                '}';
-    }
     @Override
     public boolean equals(Object obj){
         return obj instanceof LegalCustomer &&

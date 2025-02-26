@@ -1,7 +1,13 @@
 package com.mysite.customer.dto;
 
 import com.mysite.customer.model.CustomerType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public abstract class CustomerDto {
     private Integer id;
     private String name;
@@ -16,42 +22,5 @@ public CustomerDto(Integer id,String name, String number, CustomerType type) {
         this.name =name;
         this.number = number;
         this.type = type;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public CustomerType getType() {
-        return type;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", type=" + type ;
     }
 }

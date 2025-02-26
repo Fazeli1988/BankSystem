@@ -1,24 +1,18 @@
 package com.mysite.customer.dto;
 
 import com.mysite.customer.model.CustomerType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class LegalCustomerDto extends CustomerDto{
     private String fax;
 
-    public String getFax() {
-        return fax;
-    }
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
 
-    @Override
-    public String toString() {
-        return "BusinessContact{" +
-                super.toString()+
-                ", fax='" + fax + '\'' +
-                '}';
-    }
+
 
     public LegalCustomerDto(){
         super(CustomerType.LEGAL);

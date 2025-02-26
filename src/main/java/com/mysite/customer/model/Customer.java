@@ -3,6 +3,9 @@ package com.mysite.customer.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,6 +15,9 @@ import java.util.concurrent.atomic.AtomicInteger;
         @JsonSubTypes.Type(value = LegalCustomer.class,name = "LEGAL"),
         @JsonSubTypes.Type(value = RealCustomer.class,name = "REAL")
 })
+@Getter
+@Setter
+@ToString
 public abstract class Customer implements Serializable {
     private static final AtomicInteger ID_COUNTER=new AtomicInteger(1);
     @JsonIgnore
@@ -32,48 +38,12 @@ public abstract class Customer implements Serializable {
         this.deleted=false;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public CustomerType getType() {
-        return type;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", type=" + type ;
-    }
-
     private String capitalizeFirstCharacter(String str){
         if(str != null && !str.isEmpty()){
             return Character.toUpperCase(str.charAt(0))+str.substring(1);
         }
         return str;
     }
-    public String getName(){
-        return name;
-    }
-    public  String getNumber(){
-        return number;
-    }
-    public void setName(String name){
-        this.name=capitalizeFirstCharacter(name);
-    }
-    public void setNumber(String number){
-        this.number=number;
-    }
+
 
 }

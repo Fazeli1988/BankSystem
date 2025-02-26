@@ -1,23 +1,16 @@
 package com.mysite.customer.model;
 
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import java.io.Serializable;
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class RealCustomer extends Customer implements Serializable {
     private String family;
-    public String getFamily() {
-        return family;
-    }
 
-    public void setFamily(String family) {
-        this.family = family;
-    }
-    @Override
-    public String toString() {
-        return "PersonalContact{" +
-                super.toString()+
-                ", family='" + family + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object obj){
