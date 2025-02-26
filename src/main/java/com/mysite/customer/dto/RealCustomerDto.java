@@ -21,5 +21,8 @@ public class RealCustomerDto extends CustomerDto{
     public RealCustomerDto(Integer id,String name, String number) {
         super(id,name, number, CustomerType.REAL);
     }
+  public RealCustomerDto() {
+        super(CustomerType.REAL);
+    }
 
 }

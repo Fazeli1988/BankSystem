@@ -20,6 +20,9 @@ public class LegalCustomerDto extends CustomerDto{
                 '}';
     }
 
+    public LegalCustomerDto(){
+        super(CustomerType.LEGAL);
+    }
     public LegalCustomerDto(Integer id, String name, String number){
         super(id,name,number, CustomerType.LEGAL);
     }

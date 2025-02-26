@@ -3,12 +3,15 @@ package com.mysite.customer.dto;
 import com.mysite.customer.model.CustomerType;
 
 public abstract class CustomerDto {
-    private final Integer id;
+    private Integer id;
     private String name;
     private String number;
     private final CustomerType type;
 
-    public CustomerDto(Integer id,String name, String number, CustomerType type) {
+    public CustomerDto(CustomerType type) {
+        this.type = type;
+    }
+public CustomerDto(Integer id,String name, String number, CustomerType type) {
         this.id=id;
         this.name =name;
         this.number = number;

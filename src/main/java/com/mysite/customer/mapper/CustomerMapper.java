@@ -7,6 +7,11 @@ import com.mysite.customer.model.Customer;
 import com.mysite.customer.model.LegalCustomer;
 import com.mysite.customer.model.RealCustomer;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomerMapper {
@@ -15,31 +20,51 @@ public class CustomerMapper {
                 .map(CustomerMapper::mapToCustomerDto)
                 .toList();
     }
+    private static Field[] getAllFields(Class<?> aClass){
+        List<Field>fields=new ArrayList<>();
+        while (aClass!=null){
+            fields.addAll(Arrays.asList(aClass.getDeclaredFields()));
+            aClass=aClass.getSuperclass();
+        }
+        return fields.toArray(new Field[0]);
+    }
     public static CustomerDto mapToCustomerDto(Customer customer){
         if(customer instanceof RealCustomer){
-            return mapToRealCustomerDto((RealCustomer) customer);
+            return map((RealCustomer) customer,RealCustomerDto.class);
         }else {
-            return mapToLegalCustomerDto((LegalCustomer) customer);
+            return map((LegalCustomer) customer,LegalCustomerDto.class);
         }
 
     }
-    public static RealCustomerDto mapToRealCustomerDto(RealCustomer realCustomer){
-        RealCustomerDto realCustomerDto=new RealCustomerDto(
-                realCustomer.getId(),
-                realCustomer.getName(),
-                realCustomer.getNumber()
-        );
-        realCustomerDto.setFamily(realCustomer.getFamily());
-        return realCustomerDto;
+
+
+    private static Field findMachingField(Field sourceField,Field[] destinationFields) {
+        for (Field destinationField : destinationFields) {
+            if(destinationField.getName().equals(sourceField.getName())){
+                destinationField.getType().isAssignableFrom(sourceField.getType());
+                return destinationField;
+            }
+        }
+        return null;
     }
-    public static LegalCustomerDto mapToLegalCustomerDto(LegalCustomer legalCustomer){
-        LegalCustomerDto legalCustomerDto=new LegalCustomerDto(
-                legalCustomer.getId(),
-                legalCustomer.getName(),
-                legalCustomer.getNumber()
-        );
-        legalCustomerDto.setFax(legalCustomer.getFax());
-        return legalCustomerDto;
+    public static <T, U> U map(T source,Class<U> destinationClass){
+        try {
+        U destination=destinationClass.getDeclaredConstructor().newInstance();
+        Field[] sourceFields=getAllFields(source.getClass());
+        Field[] destinationFields=getAllFields(destinationClass);
+        for (Field sourceField : sourceFields) {
+            Field destinationField=findMachingField(sourceField,destinationFields);
+            if (destinationField!=null){
+                sourceField.setAccessible(true);
+                destinationField.setAccessible(true);
+                destinationField.set(destination,sourceField.get(source));
+            }
+        }
+        return destination;
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException |
+                 NoSuchMethodException ignored) {
+            return null;
+        }
     }
     public static Customer mapToCustomer(CustomerDto customerDto,Customer customer){
         if(customerDto instanceof RealCustomerDto){
