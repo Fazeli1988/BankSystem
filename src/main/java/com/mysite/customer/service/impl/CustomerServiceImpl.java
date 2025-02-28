@@ -22,11 +22,13 @@ public class CustomerServiceImpl implements CustomerService {
     static {
         INSTANCE =new CustomerServiceImpl();
     }
+    private ArrayList<Customer> customers;
+    private final ObjectMapper objectMapper;
     private CustomerServiceImpl(){
-
+        objectMapper= MapperWrapper.getInstance();
+        customers=new ArrayList<>();
     }
-    private ArrayList<Customer> customers=new ArrayList<>();
-    private ObjectMapper objectMapper= MapperWrapper.getInstance();
+
     @Override
     public void deleteCustomersById(Integer id) throws CustomerNotFindException {
         getCustomerById(id).setDeleted(true);

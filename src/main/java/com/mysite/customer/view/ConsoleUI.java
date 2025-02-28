@@ -1,11 +1,14 @@
 package com.mysite.customer.view;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysite.customer.dto.CustomerDto;
 import com.mysite.customer.facade.CustomerFacade;
 import com.mysite.customer.facade.impl.CustomerFacadeImpl;
 import com.mysite.customer.model.CustomerType;
 import com.mysite.customer.model.FileType;
 import com.mysite.customer.service.exception.*;
+import com.mysite.customer.util.MapperWrapper;
 import com.mysite.customer.util.ScannerWrapper;
 import com.mysite.customer.view.component.AbstractCustomerUI;
 
@@ -15,9 +18,11 @@ import java.util.function.Function;
 public class ConsoleUI  implements AutoCloseable{
     private final ScannerWrapper scannerWrapper;
     private final CustomerFacade customerFacade;
+    private final ObjectMapper objectMapper;
     public ConsoleUI() {
         scannerWrapper = ScannerWrapper.getInstance();
         customerFacade = CustomerFacadeImpl.getInstance();
+        objectMapper= new ObjectMapper();
     }
     private void saveOnExit(){
         customerFacade.saveOnExit();
@@ -161,7 +166,11 @@ public class ConsoleUI  implements AutoCloseable{
         List<CustomerDto> allCustomers = customerFacade.getActiveCustomers();
         System.out.println("All Customer:");
         for (CustomerDto customer : allCustomers) {
-            System.out.println(customer);
+            try {
+                System.out.println(objectMapper.writeValueAsString(customer));
+            } catch (JsonProcessingException e) {
+                System.out.println("Error on print customer id "+ customer.getId());
+            }
         }
     }
     private void printAllDeletedCustomers() throws EmptyCustomerException {

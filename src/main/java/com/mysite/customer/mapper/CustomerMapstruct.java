@@ -7,7 +7,10 @@ import com.mysite.customer.model.Customer;
 import com.mysite.customer.model.LegalCustomer;
 import com.mysite.customer.model.RealCustomer;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
+import java.lang.annotation.Target;
 import java.util.List;
 
 @Mapper
@@ -40,16 +43,8 @@ public interface CustomerMapstruct {
                     new LegalCustomer(null,null));
         }
     }
-    default RealCustomer mapToRealCustomer(RealCustomerDto realCustomerDto,RealCustomer realCustomer){
-        realCustomer.setName(realCustomerDto.getName());
-        realCustomer.setNumber(realCustomerDto.getNumber());
-        realCustomer.setFamily(realCustomerDto.getFamily());
-        return realCustomer;
-    }
-    default LegalCustomer mapToLegalCustomer(LegalCustomerDto legalCustomerDto,LegalCustomer legalCustomer){
-        legalCustomer.setName(legalCustomerDto.getName());
-        legalCustomer.setNumber(legalCustomerDto.getNumber());
-        legalCustomer.setFax(legalCustomerDto.getFax());
-        return legalCustomer;
-    }
+    @Mapping(ignore = true,target = "id")
+    RealCustomer mapToRealCustomer(RealCustomerDto realCustomerDto,@MappingTarget RealCustomer realCustomer);
+    @Mapping(ignore = true,target = "id")
+    LegalCustomer mapToLegalCustomer(LegalCustomerDto legalCustomerDto,@MappingTarget LegalCustomer legalCustomer);
 }
