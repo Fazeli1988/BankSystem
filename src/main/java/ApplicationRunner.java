@@ -1,4 +1,4 @@
-import com.mysite.customer.view.ConsoleUI;
+import com.mysite.banking.view.ConsoleUI;
 
 public class ApplicationRunner {
     public static void main(String[] args) {
