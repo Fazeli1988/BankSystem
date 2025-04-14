@@ -7,21 +7,24 @@ import com.mysite.banking.model.FileType;
 import java.util.List;
 
 public interface CustomerService {
-    void deleteCustomersById(Integer id) throws CustomerNotFindException;
+    void deleteCustomerById(Integer id) throws CustomerNotFindException;
     List<Customer> searchCustomersByFamily(String family);
+
+    Customer searchCustomersByEmail(String email) throws CustomerNotFindException;
+
     List<Customer> searchCustomersByName(String name);
-    Customer getCustomerById(Integer id) throws CustomerNotFindException;
     List<Customer> getActiveCustomers() throws EmptyCustomerException;
     List<Customer> getDeletedCustomers() throws EmptyCustomerException;
+    Customer getCustomerById(Integer id) throws CustomerNotFindException;
     void addCustomer(Customer customer) throws DuplicateCustomerException;
-
     void saveData(String name, FileType type) throws FileException;
-
-    void loadDate(String name, FileType fileType) throws FileException;
+    void loadData(String name, FileType fileType) throws FileException;
 
     void initData();
 
     void saveOnExit();
 
     void addData(String name) throws FileException;
+
+    Boolean login(String username, String password);
 }

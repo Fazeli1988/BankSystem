@@ -1,9 +1,7 @@
 package com.mysite.banking.dto;
 
-import com.mysite.banking.model.AccountType;
+import com.mysite.banking.model.Amount;
 import lombok.*;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Setter
@@ -12,7 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @AllArgsConstructor
 public class AccountDto {
     private Integer id;
-    private AccountType type;
-    private Double balance;
+    private AmountDto balance;
     private Integer customerId;
 }

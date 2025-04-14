@@ -1,6 +1,7 @@
 package com.mysite.banking.facade.impl;
 
 import com.mysite.banking.dto.AccountDto;
+import com.mysite.banking.dto.AmountDto;
 import com.mysite.banking.facade.AccountFacade;
 import com.mysite.banking.mapper.AccountMapstruct;
 import com.mysite.banking.model.Account;
@@ -19,64 +20,77 @@ import java.util.List;
 
 public class AccountFacadeImpl implements AccountFacade {
     private ValidationContext<AccountDto> validationContext;
-    private final AccountService accountService;
+    private AccountService accountService;
+
     private final CustomerService customerService;
     private final AccountMapstruct accountMapstruct;
     private static final AccountFacadeImpl INSTANCE;
     public static AccountFacadeImpl getInstance(){
         return INSTANCE;
     }
-    static {
-        INSTANCE =new AccountFacadeImpl();
+    public static AccountFacadeImpl getInstance(AccountService accountService){
+        INSTANCE.accountService=accountService;
+        return INSTANCE;
     }
-
+    static {
+        INSTANCE = new AccountFacadeImpl();
+    }
     private AccountFacadeImpl() {
-        this.accountMapstruct=Mappers.getMapper(AccountMapstruct.class);
+        this.accountMapstruct = Mappers.getMapper(AccountMapstruct.class);
         this.accountService = AccountServiceImpl.getInstance();
-        this.validationContext=new AccountValidationContext();
-        this.customerService=CustomerServiceImpl.getInstance();
+        this.customerService = CustomerServiceImpl.getInstance();
+        this.validationContext = new AccountValidationContext();
+    }
+ private AccountFacadeImpl(AccountServiceImpl accountService) {
+        this.accountMapstruct = Mappers.getMapper(AccountMapstruct.class);
+        this.accountService = accountService;
+        this.customerService = CustomerServiceImpl.getInstance();
+        this.validationContext = new AccountValidationContext();
     }
 
     @Override
     public void deleteAccountById(Integer id) throws AccountNotFindException {
         accountService.deleteAccountById(id);
     }
+
     @Override
     public List<AccountDto> getActiveAccounts() throws EmptyAccountException {
         return accountMapstruct.mapToAccountDtoList(
                 accountService.getActiveAccounts());
     }
+
     @Override
     public List<AccountDto> getDeletedAccounts() throws EmptyAccountException {
         return accountMapstruct.mapToAccountDtoList(
                 accountService.getDeletedAccounts());
     }
+
     @Override
     public AccountDto getAccountById(Integer id) throws AccountNotFindException {
         return accountMapstruct.mapToAccountDto(accountService.getAccountById(id));
     }
+
     @Override
-    public void addAccount(AccountDto accountDto) throws  ValidationException {
+    public void addAccount(AccountDto accountDto) throws ValidationException {
         validationContext.validate(accountDto);
         accountService.addAccount(accountMapstruct.mapToAccount(accountDto));
-
     }
+
     @Override
     public void updateAccount(AccountDto accountDto) throws ValidationException, AccountNotFindException {
         validationContext.validate(accountDto);
-        Account account= accountService.getAccountById(accountDto.getId());
-
-        accountMapstruct.mapToAccount(accountDto,account);
-
+        Account account = accountService.getAccountById(accountDto.getId());
+        accountMapstruct.mapToAccount(accountDto, account);
     }
+
     @Override
     public void saveData(String name, FileType type) throws FileException {
-        accountService.saveData(name,type);
+        accountService.saveData(name, type);
     }
 
     @Override
     public void loadData(String name, FileType fileType) throws FileException {
-        accountService.loadDate(name,fileType);
+        accountService.loadData(name, fileType);
     }
 
     @Override
@@ -95,23 +109,27 @@ public class AccountFacadeImpl implements AccountFacade {
     }
 
     @Override
-    public List<AccountDto> searchAccountByCustomersName(String name) {
+    public List<AccountDto> searchAccountByCustomerName(String name) {
         List<Customer> customers = customerService.searchCustomersByName(name);
-        List<Account> accounts=new ArrayList<>();
+        List<Account> accountList = new ArrayList<>();
         for (Customer customer : customers) {
-            accounts.addAll(accountService.getAccountByCustomerId(customer.getId()))  ;
+            accountList.addAll(accountService.getAccountByCustomerId(customer.getId()));
         }
-        return accountMapstruct.mapToAccountDtoList(accounts);
+        return accountMapstruct.mapToAccountDtoList(accountList);
     }
 
     @Override
-    public void deposit(int accountId, Double amount) throws AccountNotFindException {
-        accountService.deposit(accountId,amount);
+    public void deposit(int accountId, AmountDto amount) throws AccountNotFindException {
+        accountService.deposit(accountId,accountMapstruct.mapToAmountDto(amount));
     }
 
     @Override
-    public void withdraw(int accountId, Double amount) throws AccountNotFindException, ValidationException {
-        accountService.withdraw(accountId,amount);
+    public void withdraw(int accountId, AmountDto amount) throws AccountNotFindException, ValidationException {
+        accountService.withdraw(accountId, accountMapstruct.mapToAmountDto(amount));
+    }
 
+    @Override
+    public void transfer(int fromAccountId, int toAccountId, AmountDto amount) throws AccountNotFindException, ValidationException {
+        accountService.transfer(fromAccountId, toAccountId, accountMapstruct.mapToAmountDto(amount));
     }
 }

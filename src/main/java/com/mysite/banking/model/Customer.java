@@ -19,31 +19,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @ToString
 public abstract class Customer implements Serializable {
-    private static final AtomicInteger ID_COUNTER=new AtomicInteger(1);
-    @JsonIgnore
     private Integer id;
     private String name;
     private String number;
+    private String password;
+    private String email;
     private final CustomerType type;
+
     private Boolean deleted;
+
     public Customer(CustomerType type){
-        this.id=ID_COUNTER.getAndIncrement();
         this.type = type;
-        this.deleted=false;
-    }
-    public Customer(String name, String number, CustomerType type) {
-        this.id=ID_COUNTER.getAndIncrement();
-        this.name =capitalizeFirstCharacter(name);
-        this.number = number;
-        this.type = type;
-        this.deleted=false;
+        this.deleted = false;
     }
 
-    private String capitalizeFirstCharacter(String str){
-        if(str != null && !str.isEmpty()){
-            return Character.toUpperCase(str.charAt(0))+str.substring(1);
-        }
-        return str;
+    public Customer(String name, String number, CustomerType type) {
+        this.name = name;
+        this.number = number;
+        this.type = type;
+        this.deleted = false;
     }
 
 

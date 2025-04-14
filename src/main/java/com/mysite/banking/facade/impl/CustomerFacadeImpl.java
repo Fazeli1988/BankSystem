@@ -15,25 +15,30 @@ import java.util.List;
 
 public class CustomerFacadeImpl implements CustomerFacade {
     private ValidationContext<CustomerDto> validationContext;
-    private final CustomerService customerService;
+    private  CustomerService customerService;
     private final CustomerMapstruct customerMapstruct;
     private static final CustomerFacadeImpl INSTANCE;
     public static CustomerFacadeImpl getInstance(){
         return INSTANCE;
     }
+    public static CustomerFacadeImpl getInstance(CustomerService customerService){
+        INSTANCE.validationContext = new CustomerValidationContext(INSTANCE);
+        INSTANCE.customerService = customerService;
+        return INSTANCE;
+    }
     static {
-        INSTANCE =new CustomerFacadeImpl();
+        INSTANCE = new CustomerFacadeImpl();
+    }
+    private CustomerFacadeImpl() {
+        this.customerMapstruct = Mappers.getMapper(CustomerMapstruct.class);
+        this.customerService = CustomerServiceImpl.getInstance();
+        this.validationContext = new CustomerValidationContext(this);
     }
 
-    private CustomerFacadeImpl() {
-        this.customerMapstruct=Mappers.getMapper(CustomerMapstruct.class);
-        this.customerService = CustomerServiceImpl.getInstance();
-        this.validationContext=new CustomerValidationContext();
-    }
 
     @Override
-    public void deleteCustomersById(Integer id) throws CustomerNotFindException {
-        customerService.deleteCustomersById(id);
+    public void deleteCustomerById(Integer id) throws CustomerNotFindException {
+        customerService.deleteCustomerById(id);
     }
 
     @Override
@@ -49,8 +54,8 @@ public class CustomerFacadeImpl implements CustomerFacade {
     }
 
     @Override
-    public CustomerDto getCustomerById(Integer id) throws CustomerNotFindException {
-        return customerMapstruct.mapToCustomerDto(customerService.getCustomerById(id));
+    public CustomerDto searchCustomersByEmail(String email) throws CustomerNotFindException {
+        return customerMapstruct.mapToCustomerDto(customerService.searchCustomersByEmail(email));
     }
 
     @Override
@@ -59,7 +64,6 @@ public class CustomerFacadeImpl implements CustomerFacade {
                 customerService.getActiveCustomers());
     }
 
-
     @Override
     public List<CustomerDto> getDeletedCustomers() throws EmptyCustomerException {
         return customerMapstruct.mapToCustomerDtoList(
@@ -67,29 +71,31 @@ public class CustomerFacadeImpl implements CustomerFacade {
     }
 
     @Override
+    public CustomerDto getCustomerById(Integer id) throws CustomerNotFindException {
+        return customerMapstruct.mapToCustomerDto(customerService.getCustomerById(id));
+    }
+
+    @Override
     public void addCustomer(CustomerDto customer) throws DuplicateCustomerException, ValidationException {
         validationContext.validate(customer);
         customerService.addCustomer(customerMapstruct.mapToCustomer(customer));
-
     }
 
     @Override
     public void updateCustomer(CustomerDto customerDto) throws ValidationException, CustomerNotFindException {
         validationContext.validate(customerDto);
-        Customer customer= customerService.getCustomerById(customerDto.getId());
-
-        customerMapstruct.mapToCustomer(customerDto,customer);
-
+        Customer customer = customerService.getCustomerById(customerDto.getId());
+        customerMapstruct.mapToCustomer(customerDto, customer);
     }
 
     @Override
     public void saveData(String name, FileType type) throws FileException {
-        customerService.saveData(name,type);
+        customerService.saveData(name, type);
     }
 
     @Override
     public void loadData(String name, FileType fileType) throws FileException {
-        customerService.loadDate(name,fileType);
+        customerService.loadData(name, fileType);
     }
 
     @Override
@@ -105,5 +111,10 @@ public class CustomerFacadeImpl implements CustomerFacade {
     @Override
     public void addData(String name) throws FileException {
         customerService.addData(name);
+    }
+
+    @Override
+    public Boolean login(String username, String password) {
+        return customerService.login(username, password);
     }
 }

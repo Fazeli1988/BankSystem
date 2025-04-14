@@ -5,12 +5,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString(callSuper = true)
 public class RealCustomer extends Customer implements Serializable {
     private String family;
-
+    private Date birthday;
 
     @Override
     public boolean equals(Object obj){
@@ -20,11 +22,9 @@ public class RealCustomer extends Customer implements Serializable {
     }
 
     public RealCustomer() {
-        super( CustomerType.REAL);
+        super(CustomerType.REAL);
     }
     public RealCustomer(String name, String number) {
         super(name, number, CustomerType.REAL);
     }
-
-
 }
